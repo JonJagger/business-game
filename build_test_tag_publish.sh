@@ -7,4 +7,4 @@ export $(env_vars)
 
 ${SH_DIR}/build_images.sh
 ${SH_DIR}/run_container.sh
-${SH_DIR}/open_browser.sh
+#${SH_DIR}/open_browser.sh
