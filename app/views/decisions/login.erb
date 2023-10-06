@@ -10,7 +10,7 @@ $(() => {
   const partial = (i) => { return i.val().trim().length != 6; };
   const enable_button = () => {
     error_box.empty();
-    enter.prop('disabled', partial(level_password));
+    login.prop('disabled', partial(level_password));
   };
   level_password.on('input', enable_button);
 
@@ -20,7 +20,7 @@ $(() => {
     location.href = `/decisions_form?${params}`;
   });
 
-  enter.prop('disabled', true);
+  login.prop('disabled', true);
 
 });
 </script>
