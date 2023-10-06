@@ -10,5 +10,4 @@ ARG BG_PORT
 ENV BG_PORT=${BG_PORT}
 EXPOSE ${BG_PORT}
 
-USER nobody
 CMD [ "/app/up.sh" ]
