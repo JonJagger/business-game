@@ -1,0 +1,106 @@
+<script>
+'use strict';
+$(() => {
+
+  const a = $('#decisions_a');
+  const b = $('#decisions_b');
+  const c = $('#decisions_c');
+  const d = $('#decisions_d');
+  const wa = $('#word_a');
+  const wb = $('#word_b');
+  const wc = $('#word_c');
+  const wd = $('#word_d');
+  const sentence = $('#sentence');
+  const profound = $('#profound');
+  const submit = $('button#submit');
+
+  const partial = (i) => { return i.val().trim().length != 5; };
+  const checked = (i) => { return i.is(":checked"); };
+  const unchecked = (i) => { return !checked(i); }
+  const enable_submit = () => {
+    wa.prop('disabled', partial(a));
+    wb.prop('disabled', partial(b));
+    wc.prop('disabled', partial(c));
+    wd.prop('disabled', partial(d));
+    const any_non_words = unchecked(wa) || unchecked(wb) || unchecked(wc) || unchecked(wd);
+    sentence.prop('disabled', any_non_words);
+    profound.prop('disabled', any_non_words);
+    profound.prop('disabled', unchecked(sentence));
+    $('button#submit').prop('disabled', partial(a) || partial(b) || partial(c) || partial(d));
+  };
+  a.on('input', enable_submit);
+  b.on('input', enable_submit);
+  c.on('input', enable_submit);
+  d.on('input', enable_submit);
+  wa.on('input', enable_submit);
+  wb.on('input', enable_submit);
+  wc.on('input', enable_submit);
+  wd.on('input', enable_submit);
+  sentence.on('input', enable_submit);
+
+  const post = (url) => {
+    $('<form>', {
+      method: 'post',
+      action: url
+    }).hide().appendTo($('body')).submit().remove();
+  };
+
+  submit.click(() => {
+    const params = $.param({
+      level_password:"<%= @level_password %>",
+      a:a.val().trim(),  b:b.val().trim(), c:c.val().trim(), d:d.val().trim(),
+      wa:wa.is(":checked"), wb:wb.is(":checked"), wc:wc.is(":checked"), wd:wd.is(":checked"),
+      sentence:sentence.is(":checked"),
+      profound:profound.is(":checked")
+    });
+    post(`/decisions_form?${params}`);
+  });
+
+  submit.prop('disabled', true);
+
+});
+</script>
+
+<div id="heading">Decisions</div>
+
+<div>LevelPassword: <%= @level_password %></div>
+
+<div>Org: <%= @org_name %></div>
+
+<div>Level: <%= @level %></div>
+
+<div id="decisions">
+
+    <div class="decision">
+    A <input id="decisions_a" type="text" name="decisions_a" maxlength="5" value="">
+    word? <input id="word_a" type="checkbox" name="word_a" disabled="disabled" value="">
+    </div>
+
+    <div class="decision">
+    B <input id="decisions_b" type="text" name="decisions_b" maxlength="5" value="">
+    word? <input id="word_b" type="checkbox" name="word_b" disabled="disabled" value="">
+    </div>
+
+    <div class="decision">
+    C <input id="decisions_c" type="text" name="decisions_c" maxlength="5" value="">
+    word? <input id="word_c" type="checkbox" name="word_c" disabled="disabled" value="">
+    </div>
+
+    <div class="decision">
+    D <input id="decisions_d" type="text" name="decisions_d" maxlength="5" value="">
+    word? <input id="word_d" type="checkbox" name="word_d" disabled="disabled" value="">
+    </div>
+
+    <div class="decision">
+    sentence?<input id="sentence" type="checkbox" name="sentence" disabled="disabled" value="">
+    </div>
+
+    <div class="decision">
+    profound?<input id="profound" type="checkbox" name="profound" disabled="disabled" value="">
+    </div>
+
+</div>
+
+<div id="button-box">
+  <button type="button" id="submit">Submit</button>
+</div>

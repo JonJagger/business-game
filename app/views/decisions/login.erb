@@ -1,0 +1,40 @@
+
+<script>
+'use strict';
+$(() => {
+
+  const level_password = $('#level_password');
+  const login = $('button#login');
+  const error_box = $('#error-box');
+
+  const partial = (i) => { return i.val().trim().length != 6; };
+  const enable_button = () => {
+    error_box.empty();
+    enter.prop('disabled', partial(level_password));
+  };
+  level_password.on('input', enable_button);
+
+  login.click(() => {
+    const params = $.param({ level_password:level_password.val().trim() });
+    location.href = `/decisions_form?${params}`;
+  });
+
+  enter.prop('disabled', true);
+
+});
+</script>
+
+<div id="heading">
+    Decisions
+</div>
+
+LevelPassword:
+<input id="level_password" type="text" name="level_password" maxlength="6" value="">
+
+<div id="button-box">
+  <button type="button" id="login">Login</button>
+</div>
+
+<div id="error-box">
+  <%= @error %>
+</div>

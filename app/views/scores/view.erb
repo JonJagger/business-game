@@ -1,0 +1,53 @@
+<script>
+'use strict';
+$(() => {
+
+  $('.timestamp').each(function() {
+    const unixTs = parseInt($(this).text());
+    const date = new Date(unixTs * 1000);
+    const hh = date.getUTCHours()  .toString().padStart(2, '0');
+    const mm = date.getUTCMinutes().toString().padStart(2, '0');
+    const ss = date.getUTCSeconds().toString().padStart(2, '0');
+    $(this).text(`${hh}:${mm}:${ss}`);
+  });
+
+  $('.total').each(function() {
+    const total = parseInt($(this).text());
+    const formatter = new Intl.NumberFormat('en-US');
+    $(this).text(formatter.format(total));
+  });
+
+});
+</script>
+
+<div id="heading">
+    Scores
+</div>
+
+<div>Org: <%= @org_name %></div>
+
+<table id="scores">
+<% @events.each do |event| %>
+    <% if event["type"] === "decision" %>
+        <tr>
+          <td><span class="timestamp"><%= event["timestamp"] %></span></td>
+          <td>Decision(Level<%= event["level"] %>):</td>
+          <td><span class="section">A: <%= event["decisions"][0] %>=<%= event["scores"][0] %></span></td>
+          <td><span class="section">B: <%= event["decisions"][1] %>=<%= event["scores"][1] %></span></td>
+          <td><span class="section">C: <%= event["decisions"][2] %>=<%= event["scores"][2] %></span></td>
+          <td><span class="section">D: <%= event["decisions"][3] %>=<%= event["scores"][3] %></span></td>
+          <td>Points=<%= event["sub_total"] %></td>
+          <td>Total=<span class="total"><%= event["running_total"] %></span></td>
+        </tr>
+    <% end %>
+    <% if event["type"] === 'consulting' %>
+      <tr>
+          <td><span class="timestamp"><%= event["timestamp"] %></span></td>
+          <td>Consulting(Level<%= event["level"] %>):</td>
+          <td colspan="4"></td>
+          <td>Points=-<%= event["cost"] %></td>
+          <td>Total=<span class="total"><%= event["running_total"] %></span></td>
+      </tr>
+    <% end %>
+<% end %>
+</table>

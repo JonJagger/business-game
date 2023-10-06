@@ -1,0 +1,92 @@
+
+Run on digital-ocean
+Need something like this...
+http://104.248.162.118:9999/official_score_gate
+
+Four page app.
+Two teams are BlueSquare and GreenCircle
+
+Level password are different for the two teams...
+
+DecisionForm must have an attached LevelTicket.
+ConsultingForm must have an attached LevelTicket.
+
+Org's initial LevelTicket (and an official PaperClip) can be
+- available from the Scorer?
+- available from the Consultant?
+- discretely hidden in the room?
+- could be in different places!
+
+Is it a good idea to allow anyone to submit a DecisionForm whenever they like?
+It means an Org might win simply by submitting more decisions.
+I guess that is ok though.
+There are other metrics...
+No of decisions at each level  (fewer means you're probably smarter)
+Time to get to each level      (sooner is better)
+
+On balance though I think it is better with regular decision rounds, eg every 4 mins.
+Orgs can still share scores by sharing their LevelTicket
+Everyone can decide to be in the same team if they want.
+
+Should the decision-rounds NOT wait if there is a consultation?
+Would mean not everyone in an Org can be in a consultation.
+
+-------------------------------------------------------------------------------
+Part 1: Scoring
+
+URL=official_score_gate
+
+   Level password: [......]
+   [Score Decision Sheet]
+   @error
+
+URL=official_score?level_password=dasfa
+
+   Org name: BlueSquare
+   Level: 2
+   A:  [.....]   word? [x]
+   B:  [.....]   word? [x]
+   C:  [.....]   word? [x]
+   D:  [.....]   word? [x]
+   sentence? [x]
+   profound? [x]
+   [Score]
+
+The Decision Form page is not public and not linked from Page1
+The reason for this is that it would reveal the possibility of word?
+sentence? profound? as being involved in the scoring.
+
+-------------------------------------------------------------------------------
+Part 2: Viewing Scores
+
+URL=view_scores_gate
+
+   Level password: [......]
+   [View Scores]
+   @error
+
+URL=view_scores?level_password=243345
+
+   Org name: BlueCircle
+
+   Decision(L1):  A: ..... => 2  B: ..... => 34  C: ..... => 34  D: ..... => 34   Subtotal=120
+   Total@{12:33:32} == 340
+
+If an Org pays for consulting this is shown in its own row
+
+   Consulting(L2):  Cost: 0.4 * 340 == 136
+   Total@{12:36:52} == 204
+
+?? Also at the bottom is the total for the _other_ Org
+
+-------------------------------------------------------------------------------
+Part 3: Consultation
+
+URL=consulting_payment
+
+   Level password: [......]
+   [Take Payment]
+   @error
+
+success: show URL=view_scores?level_password=243345
+failure: show @error

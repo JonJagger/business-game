@@ -1,0 +1,2 @@
+
+Tests need to be properly part of build script.

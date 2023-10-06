@@ -1,0 +1,118 @@
+
+$darker-color: darken(#666, 25%);
+$lighter-color: lighten(Khaki, 10%);
+
+@mixin non-code-font {
+  font-family: Impact, Trebuchet MS, Tahoma, Arial, sans-serif;
+}
+
+@mixin plaintext-font {
+  font-family: Trebuchet MS, Tahoma, Arial, sans-serif;
+}
+
+@mixin rounded-corner($radius: 6px)
+{
+  -moz-border-radius: $radius;
+  -webkit-border-radius: $radius;
+  -khtml-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin edged-panel
+{
+  @include rounded-corner(5px);
+  display: inline-block;
+  border: 1px solid darken(gray,20%);
+  padding: 4px;
+  margin: 0px;
+}
+
+//-----------------------------------------------------------------------
+body
+{
+  width: 100%;
+  height: 100%;
+  position: relative;
+  font-size: 2em;
+  margin: 30px;
+  color: $lighter-color;
+  background: $darker-color;
+  padding: none;
+  display: block;
+}
+
+#decisions
+{
+  @include edged-panel();
+  @include rounded-corner(6px);
+  padding: 30px;
+}
+
+.decision
+{
+  font-size: 1.3em;
+  padding: 3px;
+}
+
+.decision input[type=text]
+{
+  width: 200px;
+  font-size: 0.9em;
+}
+
+#heading
+{
+  font-size: 3em;
+}
+
+input[type=text], input[type=checkbox]
+{
+  position: relative;
+  top: -6px;
+}
+
+input[type=checkbox]
+{
+  margin-left:10px;
+  font-size: 4em;
+  transform: scale(2);
+}
+
+button
+{
+  @include rounded-corner(6px);
+  background: darken($lighter-color, 12%);
+
+  display: inline-block;
+  cursor: pointer;
+  padding: { left: 0.5em; right: 0.5em; bottom: 0.1em; }
+  text-decoration: none;
+  text-align: left;
+  font-weight: normal;
+  font-size: 1.3em;
+  border: 1px solid $darker-color;
+  margin-top: 10px;
+  width: 170px;
+  &:hover { border: 1px dotted lighten($darker-color, 20%); }
+  &[disabled]
+  {
+    background: lighten($darker-color, 20%);
+    cursor: default;
+    &:hover { border: 1px solid $darker-color; }
+  }
+}
+
+#level_password
+{
+  font-size: 1em;
+}
+
+table#scores
+{
+  font-size: 0.5em;
+}
+
+table#scores td
+{
+  padding: { left: 1em; right: 1em; }
+}
