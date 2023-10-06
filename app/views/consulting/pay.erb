@@ -23,6 +23,7 @@ $(() => {
 
   pay.click(() => {
     const params = $.param({ level_password:level_password.val().trim() });
+    level_password.empty();
     post(`/consulting?${params}`);
   });
 

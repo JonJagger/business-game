@@ -16,6 +16,7 @@ $(() => {
 
   login.click(() => {
     const params = $.param({ level_password:level_password.val().trim() });
+    level_password.empty();
     location.href = `/decisions_form?${params}`;
   });
 
