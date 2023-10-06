@@ -12,8 +12,7 @@ services:
     container_name: bg-container
     ports: [ "${BG_PORT}:${BG_PORT}" ]
     user: nobody
-    read_only: true
     volumes:
-      - ./app/scores:/bg-scores:rw
+      - ./app/scores:/app/scores:rw
     restart: "no"
     tmpfs: [ "/tmp:exec,mode=1777" ]

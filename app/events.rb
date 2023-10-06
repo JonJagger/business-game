@@ -49,5 +49,5 @@ def write_events(org_name, events)
 end
 
 def events_filename(org_name)
-  "/bg-scores/#{org_name}/events.json"
+  "/app/scores/#{org_name}/events.json"
 end

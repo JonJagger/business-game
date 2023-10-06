@@ -2,12 +2,12 @@
 
 export RUBYOPT='-W2'
 
-if [[ ! -f /bg-scores/BlueSquare/events.json ]]; then
-  echo '[]' > /bg-scores/BlueSquare/events.json
+if [[ ! -f /app/scores/BlueSquare/events.json ]]; then
+  echo '[]' > /app/scores/BlueSquare/events.json
 fi
 
-if [[ ! -f /bg-scores/GreenCircle/events.json ]]; then
-  echo '[]' > /bg-scores/GreenCircle/events.json
+if [[ ! -f /app/scores/GreenCircle/events.json ]]; then
+  echo '[]' > /app/scores/GreenCircle/events.json
 fi
 
 rackup \
