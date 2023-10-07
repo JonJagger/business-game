@@ -28,13 +28,13 @@ $(() => {
 
 <br/>
 
-<div class="<%= @org_name %>">Your Org: <%= @org_name %></div>
+<div class="<%= @org_name %>">Your Org: <%= @org_name %>, Total=<%= @org_total %></div>
 <table id="scores" class="<%= @org_name %>">
 <% @events.each do |event| %>
     <% if event["type"] === "decision" %>
         <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
-          <td>Decision(Level<%= event["level"] %>)</td>
+          <td>Decision(Level=<%= event["level"] %>)</td>
           <td><span class="section">A: <%= event["decisions"][0] %>=<%= event["scores"][0] %></span></td>
           <td><span class="section">B: <%= event["decisions"][1] %>=<%= event["scores"][1] %></span></td>
           <td><span class="section">C: <%= event["decisions"][2] %>=<%= event["scores"][2] %></span></td>
@@ -46,7 +46,7 @@ $(() => {
     <% if event["type"] === 'consulting' %>
       <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
-          <td>Consulting(Level<%= event["level"] %>)</td>
+          <td>Consulting(Level=<%= event["level"] %>)</td>
           <td colspan="4"></td>
           <td>Points=-<%= event["cost"] %></td>
           <td>Total=<span class="total"><%= event["running_total"] %></span></td>

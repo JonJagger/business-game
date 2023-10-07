@@ -49,9 +49,9 @@ $(() => {
     const params = $.param({
       level_password:"<%= @level_password %>",
       a:a.val().trim(),  b:b.val().trim(), c:c.val().trim(), d:d.val().trim(),
-      wa:wa.is(":checked"), wb:wb.is(":checked"), wc:wc.is(":checked"), wd:wd.is(":checked"),
-      sentence:sentence.is(":checked"),
-      rhymes:rhymes.is(":checked")
+      wa:checked(wa), wb:checked(wb), wc:checked(wc), wd:checked(wd),
+      sentence:checked(sentence),
+      rhymes:checked(rhymes)
     });
     post(`/decisions_form?${params}`);
   });
@@ -102,5 +102,5 @@ $(() => {
 </div>
 
 <div id="button-box">
-  <button type="button" id="submit">Submit</button>
+  <button type="button" id="submit">Score</button>
 </div>

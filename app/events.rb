@@ -20,7 +20,7 @@ def pay(org_name, level)
   events = read_events(org_name)
   total = current_total(org_name)
   if total < 20
-    "Org's total==#{total} is less than minimum cost (20)"
+    "Org's total=#{total} is less than minimum cost (20)"
   else
     cost = (total * 0.3).to_i
     cost = [20, cost].max
