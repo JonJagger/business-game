@@ -6,11 +6,19 @@ require 'sinatra/base'
 require 'sinatra/contrib'
 require 'sprockets'
 
+module ApplicationHelper
+  def h(text)
+    Rack::Utils.escape_html(text)
+  end
+end
+
 class BG < Sinatra::Base
   register Sinatra::Contrib
+  helpers ApplicationHelper
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
+  set :erb, :escape_html => true
   environment.append_path('assets/stylesheets')
   environment.append_path('assets/javascripts')
   environment.css_compressor = :scss
