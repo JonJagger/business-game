@@ -19,7 +19,7 @@ L1_OTHER = 1
 
 def test_level_1
   a,b,c,d = blah('XYYYY'), blah('XXYYY'), blah('berty'), blah('xxyyx')
-  scores = bg_scores(level=1, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=1, sentence=nil, rhyming=nil, a,b,c,d)
   assert_equal([L1_X+L1_Y*4, L1_X*2+L1_Y*3, L1_OTHER*5, L1_OTHER*5], scores, "11")
   assert_equal([23, 21, 5, 5], scores, "12")
   assert_equal(total=54, sum(scores), "13")
@@ -28,7 +28,7 @@ end
 
 def test_level_1_invalid_letter
   a,b,c,d = blah('&YYYY'), blah('_XYYY'), blah('be*ty'), blah('xxy+x')
-  scores = bg_scores(level=1, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=1, sentence=nil, rhyming=nil, a,b,c,d)
   sa = -1 + L1_Y*4
   sb = -1 + L1_X + L2_Y*3
   sc = -1 + L1_OTHER*4
@@ -46,7 +46,7 @@ L2_OTHER = 2
 
 def test_level_2
   a,b,c,d = blah('XxuyY'), blah('gobby'), blah('berty'), blah('grogs')
-  scores = bg_scores(level=2, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=2, sentence=nil, rhyming=nil, a,b,c,d)
   assert_equal([L2_x+L2_X+L2_OTHER+L2_y+L2_Y, L2_g+L2_y+L2_OTHER*3, L2_OTHER*4+L2_y, L2_g*2+L2_OTHER*3], scores, "21")
   assert_equal([20, 22, 14, 26], scores, "22")
   assert_equal(total=82, sum(scores), "23")
@@ -55,7 +55,7 @@ end
 
 def test_level_2_invalid_letter
   a,b,c,d = blah('&uxyY'), blah('_obby'), blah('be*ty'), blah('gr+gs')
-  scores = bg_scores(level=2, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=2, sentence=nil, rhyming=nil, a,b,c,d)
   sa = -2 + L2_OTHER + L2_x + L2_y + L2_Y
   sb = -2 + L2_OTHER*3 + L2_y
   sc = -2 + L2_OTHER*3 + L2_y
@@ -78,7 +78,7 @@ L3_OTHER = 3
 
 def test_level_3
   a,b,c,d = blah('XxuyY'), blah('gOCby'), blah('bArMy'), blah('grogS')
-  scores = bg_scores(level=3, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=3, sentence=nil, rhyming=nil, a,b,c,d)
   assert_equal([L3_X+L3_x+L3_OTHER+L3_y+L3_Y,
                 L3_g+L3_O+L3_C+L3_OTHER+L3_y,
                 L3_OTHER+L3_A+L3_OTHER+L3_M+L3_y,
@@ -90,7 +90,7 @@ end
 
 def test_level_3_invalid_letter
   a,b,c,d = blah('&XxyY'), blah('gOC*y'), blah('bA%My'), blah('gr+gS')
-  scores = bg_scores(level=3, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=3, sentence=nil, rhyming=nil, a,b,c,d)
   sa = -3 + L3_X + L3_x + L3_y + L3_Y
   sb = -3 + L3_g + L3_O + L3_C + L3_y
   sc = -3 + L3_OTHER + L3_A + L3_M + L3_y
@@ -102,7 +102,7 @@ end
 def test_level_4
   multiplier = 10
   a,b,c,d = blah('XxuyY'), blah('gOCby'), word('bArMy'), blah('grogS')
-  scores = bg_scores(level=4, sentence=nil, profound=nil, a,b,c,d)
+  scores = bg_scores(level=4, sentence=nil, rhyming=nil, a,b,c,d)
   assert_equal([L3_X+L3_x+L3_OTHER+L3_y+L3_Y,
                 L3_g+L3_O+L3_C+L3_OTHER+L3_y,
                 (L3_OTHER+L3_A+L3_OTHER+L3_M+L3_y) * multiplier,
@@ -115,7 +115,7 @@ end
 def test_level_5
   multiplier = 10*10
   a,b,c,d = word('hello'), word('world'), word('bArMy'), word('gameS')
-  scores = bg_scores(level=5, sentence=true, profound=nil, a,b,c,d)
+  scores = bg_scores(level=5, sentence=true, rhyming=nil, a,b,c,d)
   assert_equal([L3_OTHER*5 * multiplier,
                 L3_OTHER*5 * multiplier,
                 (L3_OTHER+L3_A+L3_OTHER+L3_M+L3_y) * multiplier,
@@ -129,7 +129,7 @@ end
 def test_level_6
   multiplier = 10*10*10
   a,b,c,d = word('wrong'), word('wordS'), word('SCore'), word('SMall')
-  scores = bg_scores(level=6, sentence=nil, profound=true, a,b,c,d)
+  scores = bg_scores(level=6, sentence=nil, rhyming=true, a,b,c,d)
   assert_equal([(L3_OTHER*4+L3_g) * multiplier,
                 (L3_OTHER*4+L3_S) * multiplier,
                 (L3_OTHER*3+L3_S+L3_C) * multiplier,
@@ -140,24 +140,24 @@ def test_level_6
   total
 end
 
-def test_level_6_not_profound_drops_back_to_level_5_scores
+def test_level_6_not_rhyming_drops_back_to_level_5_scores
   multiplier = 10*10
   a,b,c,d = word('wrong'), word('wordS'), word('SCore'), word('SMall')
-  scores = bg_scores(level=6, sentence=true, profound=false, a,b,c,d)
+  scores = bg_scores(level=6, sentence=true, rhyming=false, a,b,c,d)
   assert_equal([(L3_OTHER*4+L3_g) * multiplier,
                 (L3_OTHER*4+L3_S) * multiplier,
                 (L3_OTHER*3+L3_S+L3_C) * multiplier,
                 (L3_OTHER*3+L3_S+L3_M) * multiplier],
-                scores, "test_level_6_not_profound_drops_back_to_level_5_scores - 1")
-  assert_equal([2200, 5200, 6900, 10900], scores, "test_level_6_not_profound_drops_back_to_level_5_scores - 2")
-  assert_equal(total=25200, sum(scores), "test_level_6_not_profound_drops_back_to_level_5_scores - 3")
+                scores, "test_level_6_not_rhyming_drops_back_to_level_5_scores - 1")
+  assert_equal([2200, 5200, 6900, 10900], scores, "test_level_6_not_rhyming_drops_back_to_level_5_scores - 2")
+  assert_equal(total=25200, sum(scores), "test_level_6_not_rhyming_drops_back_to_level_5_scores - 3")
   total
 end
 
 def test_level_6_not_sentence_drops_back_to_level_4_scores
   multiplier = 10
   a,b,c,d = word('wrong'), word('wordS'), word('SCore'), word('SMall')
-  scores = bg_scores(level=6, sentence=false, profound=false, a,b,c,d)
+  scores = bg_scores(level=6, sentence=false, rhyming=false, a,b,c,d)
   assert_equal([(L3_OTHER*4+L3_g) * multiplier,
                 (L3_OTHER*4+L3_S) * multiplier,
                 (L3_OTHER*3+L3_S+L3_C) * multiplier,
@@ -213,6 +213,6 @@ test_level_1_invalid_letter
 test_level_2_invalid_letter
 test_level_3_invalid_letter
 
-test_level_6_not_profound_drops_back_to_level_5_scores
+test_level_6_not_rhyming_drops_back_to_level_5_scores
 test_level_6_not_sentence_drops_back_to_level_4_scores
 p("All tests passed")

@@ -32,15 +32,15 @@ Should the decision-rounds NOT wait if there is a consultation?
 Would mean not everyone in an Org can be in a consultation.
 
 -------------------------------------------------------------------------------
-Part 1: Scoring
+Part 1: Decisions
 
-URL=official_score_gate
+URL=decisions_login
 
-   Level password: [......]
-   [Score Decision Sheet]
+   LevelPassword: [......]
+   [Login]
    @error
 
-URL=official_score?level_password=dasfa
+URL=decisions_form?level_password=dasfa
 
    Org name: BlueSquare
    Level: 2
@@ -49,23 +49,23 @@ URL=official_score?level_password=dasfa
    C:  [.....]   word? [x]
    D:  [.....]   word? [x]
    sentence? [x]
-   profound? [x]
+   rhyming? [x]
    [Score]
 
 The Decision Form page is not public and not linked from Page1
 The reason for this is that it would reveal the possibility of word?
-sentence? profound? as being involved in the scoring.
+sentence? rhyming? as being involved in the scoring.
 
 -------------------------------------------------------------------------------
-Part 2: Viewing Scores
+Part 2: Scoring
 
-URL=view_scores_gate
+URL=scores_login
 
-   Level password: [......]
-   [View Scores]
+   LevelPassword: [......]
+   [Login]
    @error
 
-URL=view_scores?level_password=243345
+URL=scores?level_password=243345
 
    Org name: BlueCircle
 
@@ -80,13 +80,13 @@ If an Org pays for consulting this is shown in its own row
 ?? Also at the bottom is the total for the _other_ Org
 
 -------------------------------------------------------------------------------
-Part 3: Consultation
+Part 3: Consulting
 
-URL=consulting_payment
+URL=consulting
 
-   Level password: [......]
-   [Take Payment]
+   LevelPassword: [......]
+   [Pay]
    @error
 
-success: show URL=view_scores?level_password=243345
-failure: show @error
+POST success: update events json, show URL=scores?level_password=243345
+POST failure: show URL=consulting with @error

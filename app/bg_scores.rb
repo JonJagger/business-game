@@ -5,11 +5,11 @@
 # Available on LeanPub:
 #   https://leanpub.com/experientiallearning4sampleexercises
 
-def bg_scores(level, sentence, profound, a, b, c, d)
-  org_score(level, sentence, profound, a, b, c, d)
+def bg_scores(level, sentence, rhymes, a, b, c, d)
+  org_score(level, sentence, rhymes, a, b, c, d)
 end
 
-def org_score(level, is_sentence, is_profound, *decisions)
+def org_score(level, is_sentence, rhyming, *decisions)
   letters,are_words = decisions.transpose
   letters.map!{ |word| word.chars }
   if level == 1
@@ -23,7 +23,7 @@ def org_score(level, is_sentence, is_profound, *decisions)
   elsif level == 5
      level_5_scores(is_sentence, *letters, *are_words)
   elsif level == 6
-     level_6_scores(is_profound, is_sentence, *letters, *are_words)
+     level_6_scores(rhyming, is_sentence, *letters, *are_words)
   end
 end
 
@@ -145,8 +145,8 @@ end
 
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-def level_6_scores(is_profound, is_sentence, a, b, c, d, wa, wb, wc, wd)
-  if is_profound
+def level_6_scores(rhyming, is_sentence, a, b, c, d, wa, wb, wc, wd)
+  if rhyming
     is_sentence = true
   end
   if is_sentence
@@ -155,15 +155,15 @@ def level_6_scores(is_profound, is_sentence, a, b, c, d, wa, wb, wc, wd)
     wc = true
     wd = true
   end
-  [ level_6_section_score(is_profound, is_sentence, a, wa),
-    level_6_section_score(is_profound, is_sentence, b, wb),
-    level_6_section_score(is_profound, is_sentence, c, wc),
-    level_6_section_score(is_profound, is_sentence, d, wd)
+  [ level_6_section_score(rhyming, is_sentence, a, wa),
+    level_6_section_score(rhyming, is_sentence, b, wb),
+    level_6_section_score(rhyming, is_sentence, c, wc),
+    level_6_section_score(rhyming, is_sentence, d, wd)
   ]
 end
 
-def level_6_section_score(is_profound, is_sentence, section, is_word)
-  multiplier = is_profound ? 10 : 1
+def level_6_section_score(rhyming, is_sentence, section, is_word)
+  multiplier = rhyming ? 10 : 1
   level_5_section_score(is_sentence, section, is_word) * multiplier
 end
 

@@ -11,7 +11,7 @@ $(() => {
   const wc = $('#word_c');
   const wd = $('#word_d');
   const sentence = $('#sentence');
-  const profound = $('#profound');
+  const rhymes = $('#rhymes');
   const submit = $('button#submit');
 
   const partial = (i) => { return i.val().trim().length != 5; };
@@ -24,9 +24,9 @@ $(() => {
     wd.prop('disabled', partial(d));
     const any_non_words = unchecked(wa) || unchecked(wb) || unchecked(wc) || unchecked(wd);
     sentence.prop('disabled', any_non_words);
-    profound.prop('disabled', any_non_words);
-    profound.prop('disabled', unchecked(sentence));
-    $('button#submit').prop('disabled', partial(a) || partial(b) || partial(c) || partial(d));
+    rhymes.prop('disabled', any_non_words);
+    rhymes.prop('disabled', unchecked(sentence));
+    submit.prop('disabled', partial(a) || partial(b) || partial(c) || partial(d));
   };
   a.on('input', enable_submit);
   b.on('input', enable_submit);
@@ -51,7 +51,7 @@ $(() => {
       a:a.val().trim(),  b:b.val().trim(), c:c.val().trim(), d:d.val().trim(),
       wa:wa.is(":checked"), wb:wb.is(":checked"), wc:wc.is(":checked"), wd:wd.is(":checked"),
       sentence:sentence.is(":checked"),
-      profound:profound.is(":checked")
+      rhymes:rhymes.is(":checked")
     });
     post(`/decisions_form?${params}`);
   });
@@ -96,7 +96,7 @@ $(() => {
     </div>
 
     <div class="decision">
-    profound?<input id="profound" type="checkbox" name="profound" disabled="disabled" value="">
+    rhymes?<input id="rhymes" type="checkbox" name="rhymes" disabled="disabled" value="">
     </div>
 
 </div>

@@ -50,7 +50,7 @@ class BG < Sinatra::Base
     c = decisions('c', 'wc')
     d = decisions('d', 'wd')
     sections = [params['a'], params['b'], params['c'], params['d']]
-    scores = bg_scores(level, sentence?, profound?, a,b,c,d)
+    scores = bg_scores(level, sentence?, rhymes?, a,b,c,d)
     save_decisions(org_name, level, sections, scores)
     erb :"decisions/login"
   end
@@ -128,8 +128,8 @@ class BG < Sinatra::Base
     params['sentence'] === 'true'
   end
 
-  def profound?
-    params['profound'] === 'true'
+  def rhymes?
+    params['rhymes'] === 'true'
   end
 
   def word(s)
