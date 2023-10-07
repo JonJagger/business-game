@@ -35,10 +35,10 @@ $(() => {
         <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
           <td>Decision(Level=<%= event["level"] %>)</td>
-          <td><span class="section">A: '<%= h event["decisions"][0] %>'=<%= event["scores"][0] %></span></td>
-          <td><span class="section">B: '<%= h event["decisions"][1] %>'=<%= event["scores"][1] %></span></td>
-          <td><span class="section">C: '<%= h event["decisions"][2] %>'=<%= event["scores"][2] %></span></td>
-          <td><span class="section">D: '<%= h event["decisions"][3] %>'=<%= event["scores"][3] %></span></td>
+          <td><span class="section">A:'<%= h event["decisions"][0] %>'=<%= event["scores"][0] %></span></td>
+          <td><span class="section">B:'<%= h event["decisions"][1] %>'=<%= event["scores"][1] %></span></td>
+          <td><span class="section">C:'<%= h event["decisions"][2] %>'=<%= event["scores"][2] %></span></td>
+          <td><span class="section">D:'<%= h event["decisions"][3] %>'=<%= event["scores"][3] %></span></td>
           <td>Points=<%= event["sub_total"] %></td>
           <td>Total=<span class="total"><%= event["running_total"] %></span></td>
         </tr>
