@@ -41,14 +41,14 @@ class BG < Sinatra::Base
   end
 
   get '/decisions_form' do
-    if valid_level_password?
+    if invalid_level_password?
+      @error = "invalid password"
+      return erb :"decisions/login"
+    else
       @level_password = level_password
       @org_name = org_name
       @level = level
-      erb :"decisions/form"
-    else
-      @error = "invalid password"
-      erb :"decisions/login"
+      return erb :"decisions/form"
     end
   end
 
@@ -72,17 +72,17 @@ class BG < Sinatra::Base
   end
 
   get '/scores' do
-    if valid_level_password?
+    if invalid_level_password?
+      @error = "invalid password"
+      return erb :"scores/login"
+    else
       @level_password = level_password
       @org_name = org_name
       @org_total = current_total(org_name)
       @other_org_name = other_org_name
       @other_org_total = current_total(other_org_name)
       @events = read_events(org_name)
-      erb :"scores/view"
-    else
-      @error = "invalid password"
-      erb :"scores/login"
+      return erb :"scores/view"
     end
   end
 
@@ -95,18 +95,15 @@ class BG < Sinatra::Base
   end
 
   post '/consulting' do
-    if valid_level_password?
-      error = pay(org_name, level)
-      if error != ""
-        @error = error
-        erb :"consulting/pay"
-      else
-        redirect "/scores?level_password=#{level_password}"
-      end
-    else
+    if invalid_level_password?
       @error = "invalid password"
-      erb :"consulting/pay"
+      return erb :"consulting/pay"
     end
+    @error = pay(org_name, level)
+    if @error != ""
+      return erb :"consulting/pay"
+    end
+    redirect "/scores?level_password=#{level_password}"
   end
 
   private
@@ -116,8 +113,8 @@ class BG < Sinatra::Base
     params[is_word] === 'true' ? word(s) : blah(s)
   end
 
-  def valid_level_password?
-    LEVEL_PASSWORDS.has_key?(level_password)
+  def invalid_level_password?
+    !LEVEL_PASSWORDS.has_key?(level_password)
   end
 
   def level_password
