@@ -18,7 +18,6 @@ class BG < Sinatra::Base
 
   set :port, ENV['PORT']
   set :environment, Sprockets::Environment.new
-  set :erb, :escape_html => true
   environment.append_path('assets/stylesheets')
   environment.append_path('assets/javascripts')
   environment.css_compressor = :scss
