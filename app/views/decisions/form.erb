@@ -14,7 +14,7 @@ $(() => {
   const rhymes = $('#rhymes');
   const submit = $('button#submit');
 
-  const partial = (i) => { return i.val().trim().length != 5; };
+  const partial = (i) => { return i.val().length != 5; };
   const checked = (i) => { return i.is(":checked"); };
 
   const checkbox_off_when = (element, tf) => {
@@ -50,10 +50,9 @@ $(() => {
   };
 
   submit.click(() => {
-    const trimmed = (element) => { return element.val().trim(); }
     const params = $.param({
       level_password:"<%= @level_password %>",
-      a:trimmed(a),  b:trimmed(b), c:trimmed(c), d:trimmed(d),
+      a:a.val(),  b:b.val(), c:c.val(), d:d.val(),
       wa:checked(wa), wb:checked(wb), wc:checked(wc), wd:checked(wd),
       sentence:checked(sentence),
       rhymes:checked(rhymes)

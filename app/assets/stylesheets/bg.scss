@@ -67,6 +67,7 @@ body
 
 input[type=text], input[type=checkbox]
 {
+  white-space: pre;
   position: relative;
   top: -6px;
 }
@@ -109,11 +110,13 @@ button
 
 table#scores
 {
-  font-size: 0.5em;
+  font-size: 0.6em;
 }
 
 table#scores td
 {
+  white-space: pre;
+  font-family: monospace;
   padding: { left: 1em; right: 1em; }
 }
 
