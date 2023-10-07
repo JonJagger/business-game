@@ -3,17 +3,13 @@ require_relative 'sum'
 
 def save_decisions(org_name, level, decisions, scores)
   events = read_events(org_name)
-  if events === []
-    previous_total = 0
-  else
-    previous_total = events[-1]["running_total"]
-  end
+  previous_total = current_total(org_name)
   events.append({
     "type": "decision",
     "timestamp": Time.now.to_i,
     "level": level,             # 1
-    "decisions": decisions,     # ["XXXXX","YYYYY","sdfsd","sdfse"]
-    "scores": scores,           # [15,25,5,5]
+    "decisions": decisions,     # ["XXXXX", "YYYYY", "sdfsd", "sdfse"]
+    "scores": scores,           # [15, 25, 5, 5]
     "sub_total": sum(scores),   # 50
     "running_total": previous_total + sum(scores)
   })
@@ -22,7 +18,7 @@ end
 
 def pay(org_name, level)
   events = read_events(org_name)
-  total = events === [] ? 0 : events[-1]["running_total"]
+  total = current_total(org_name)
   if total < 20
     "Org's total==#{total} is less than minimum cost (20)"
   else
@@ -46,6 +42,11 @@ end
 
 def write_events(org_name, events)
   File.write(events_filename(org_name), JSON.pretty_generate(events))
+end
+
+def current_total(org_name)
+  events = read_events(org_name)
+  events === [] ? 0 : events[-1]["running_total"]
 end
 
 def events_filename(org_name)

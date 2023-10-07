@@ -67,6 +67,8 @@ class BG < Sinatra::Base
     if valid_level_password?
       @level_password = level_password
       @org_name = org_name
+      @other_org_name = other_org_name
+      @other_org_total = current_total(other_org_name)
       @events = read_events(org_name)
       erb :"scores/view"
     else
@@ -90,10 +92,7 @@ class BG < Sinatra::Base
         @error = error
         erb :"consulting/pay"
       else
-        @level_password = level_password
-        @org_name = org_name
-        @events = read_events(org_name)
-        erb :"scores/view"
+        redirect "/scores?level_password=#{level_password}"
       end
     else
       @error = "invalid password"
@@ -138,6 +137,14 @@ class BG < Sinatra::Base
 
   def blah(s)
     [ s, false ]
+  end
+
+  def other_org_name
+    if org_name === "BlueSquare"
+       "GreenCircle"
+    else
+       "BlueSquare"
+    end
   end
 
 end
