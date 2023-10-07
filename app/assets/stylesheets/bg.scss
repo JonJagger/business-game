@@ -1,6 +1,6 @@
 
 $darker-color: darken(#666, 25%);
-$lighter-color: lighten(Khaki, 10%);
+$lighter-color: lighten(Khaki, 20%);
 
 @mixin non-code-font {
   font-family: Impact, Trebuchet MS, Tahoma, Arial, sans-serif;
@@ -115,4 +115,14 @@ table#scores
 table#scores td
 {
   padding: { left: 1em; right: 1em; }
+}
+
+.BlueSquare
+{
+  color: #007FFF; // Azure
+}
+
+.GreenCircle
+{
+  color: LightGreen;
 }

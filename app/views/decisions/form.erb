@@ -65,11 +65,11 @@ $(() => {
 
 <div>LevelPassword: <%= @level_password %></div>
 
-<div>Org: <%= @org_name %></div>
+<div class="<%= @org_name %>">Org: <%= @org_name %></div>
 
-<div>Level: <%= @level %></div>
+<div class="<%= @org_name %>">Level: <%= @level %></div>
 
-<div id="decisions">
+<div class="<%= @org_name %>" id="decisions">
 
     <div class="decision">
     A <input id="decisions_a" type="text" name="decisions_a" maxlength="5" value="">
