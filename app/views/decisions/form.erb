@@ -16,27 +16,31 @@ $(() => {
 
   const partial = (i) => { return i.val().trim().length != 5; };
   const checked = (i) => { return i.is(":checked"); };
-  const unchecked = (i) => { return !checked(i); }
-  const enable_submit = () => {
-    wa.prop('disabled', partial(a));
-    wb.prop('disabled', partial(b));
-    wc.prop('disabled', partial(c));
-    wd.prop('disabled', partial(d));
-    const any_non_words = unchecked(wa) || unchecked(wb) || unchecked(wc) || unchecked(wd);
-    sentence.prop('disabled', any_non_words);
-    rhymes.prop('disabled', any_non_words);
-    rhymes.prop('disabled', unchecked(sentence));
+
+  const checkbox_off_when = (element, tf) => {
+    element.prop('disabled', tf);
+    if (tf) { element.prop('checked', false); }
+  };
+
+  const set_state = () => {
+    checkbox_off_when(wa, partial(a));
+    checkbox_off_when(wb, partial(b));
+    checkbox_off_when(wc, partial(c));
+    checkbox_off_when(wd, partial(d));
+    checkbox_off_when(sentence, !checked(wa) || !checked(wb) || !checked(wc) || !checked(wd));
+    checkbox_off_when(rhymes, !checked(sentence));
     submit.prop('disabled', partial(a) || partial(b) || partial(c) || partial(d));
   };
-  a.on('input', enable_submit);
-  b.on('input', enable_submit);
-  c.on('input', enable_submit);
-  d.on('input', enable_submit);
-  wa.on('input', enable_submit);
-  wb.on('input', enable_submit);
-  wc.on('input', enable_submit);
-  wd.on('input', enable_submit);
-  sentence.on('input', enable_submit);
+  
+  a.on('input', set_state);
+  b.on('input', set_state);
+  c.on('input', set_state);
+  d.on('input', set_state);
+  wa.on('input', set_state);
+  wb.on('input', set_state);
+  wc.on('input', set_state);
+  wd.on('input', set_state);
+  sentence.on('input', set_state);
 
   const post = (url) => {
     $('<form>', {
@@ -46,9 +50,10 @@ $(() => {
   };
 
   submit.click(() => {
+    const trimmed = (element) => { return element.val().trim(); }
     const params = $.param({
       level_password:"<%= @level_password %>",
-      a:a.val().trim(),  b:b.val().trim(), c:c.val().trim(), d:d.val().trim(),
+      a:trimmed(a),  b:trimmed(b), c:trimmed(c), d:trimmed(d),
       wa:checked(wa), wb:checked(wb), wc:checked(wc), wd:checked(wd),
       sentence:checked(sentence),
       rhymes:checked(rhymes)
