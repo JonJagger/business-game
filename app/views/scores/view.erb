@@ -5,9 +5,9 @@ $(() => {
   $('.timestamp').each(function() {
     const unixTs = parseInt($(this).text());
     const date = new Date(unixTs * 1000);
-    const hh = date.getUTCHours()  .toString().padStart(2, '0');
-    const mm = date.getUTCMinutes().toString().padStart(2, '0');
-    const ss = date.getUTCSeconds().toString().padStart(2, '0');
+    const hh = date.getUTCHours()  .toLocaleString().padStart(2, '0');
+    const mm = date.getUTCMinutes().toLocaleString().padStart(2, '0');
+    const ss = date.getUTCSeconds().toLocaleString().padStart(2, '0');
     $(this).text(`${hh}:${mm}:${ss}`);
   });
 
