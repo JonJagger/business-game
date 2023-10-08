@@ -24,28 +24,33 @@ $(() => {
     Scores
 </div>
 
-<div class="<%= @org_name %>">Your Org: <%= @org_name %>, Level=<%= @level %>, Total=<%= @org_total %></div>
+<table class="<%= @org_name %>">
+ <tr><td align="right">Org:</td><td><%= @org_name %></td></tr>
+ <tr><td align="right">Level:</td><td><%= @level %></td></tr>
+ <tr><td align="right">Total:</td><td><%= @org_total %></td></tr>
+</table>
+
 <table id="scores" class="<%= @org_name %>">
 <% @events.select{|event| event["level"] == @level }.each do |event| %>
     <% if event["type"] === "decision" %>
         <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
-          <td>Decision(Level=<%= event["level"] %>)</td>
+          <td>Decisions</td>
           <td><span class="section">A:'<%= h event["decisions"][0] %>'=<%= event["scores"][0] %></span></td>
           <td><span class="section">B:'<%= h event["decisions"][1] %>'=<%= event["scores"][1] %></span></td>
           <td><span class="section">C:'<%= h event["decisions"][2] %>'=<%= event["scores"][2] %></span></td>
           <td><span class="section">D:'<%= h event["decisions"][3] %>'=<%= event["scores"][3] %></span></td>
-          <td>Points=<%= event["sub_total"] %></td>
-          <td>Total=<span class="total"><%= event["running_total"] %></span></td>
+          <td>Points:<%= event["sub_total"] %></td>
+          <td>Total:<span class="total"><%= event["running_total"] %></span></td>
         </tr>
     <% end %>
     <% if event["type"] === 'consulting' %>
       <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
-          <td>Consulting(Level=<%= event["level"] %>)</td>
+          <td>Consulting</td>
           <td colspan="4"></td>
-          <td>Points=-<%= event["cost"] %></td>
-          <td>Total=<span class="total"><%= event["running_total"] %></span></td>
+          <td>Points:-<%= event["cost"] %></td>
+          <td>Total:<span class="total"><%= event["running_total"] %></span></td>
       </tr>
     <% end %>
 <% end %>
