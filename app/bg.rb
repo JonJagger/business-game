@@ -78,6 +78,7 @@ class BG < Sinatra::Base
       @level_password = level_password
       @org_name = org_name
       @org_total = current_total(org_name)
+      @level = level
       @other_org_name = other_org_name
       @other_org_total = current_total(other_org_name)
       @events = read_events(org_name)

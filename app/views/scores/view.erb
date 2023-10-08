@@ -28,9 +28,9 @@ $(() => {
 
 <br/>
 
-<div class="<%= @org_name %>">Your Org: <%= @org_name %>, Total=<%= @org_total %></div>
+<div class="<%= @org_name %>">Your Org: <%= @org_name %>, Level=<%= @level %>, Total=<%= @org_total %></div>
 <table id="scores" class="<%= @org_name %>">
-<% @events.each do |event| %>
+<% @events.select{|event| event["level"] == @level }.each do |event| %>
     <% if event["type"] === "decision" %>
         <tr>
           <td><span class="timestamp"><%= event["timestamp"] %></span></td>
