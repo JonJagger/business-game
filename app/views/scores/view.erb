@@ -24,10 +24,6 @@ $(() => {
     Scores
 </div>
 
-<div class="<%= @other_org_name %>">Other Org: <%= @other_org_name %>, Total=<%= @other_org_total %></div>
-
-<br/>
-
 <div class="<%= @org_name %>">Your Org: <%= @org_name %>, Level=<%= @level %>, Total=<%= @org_total %></div>
 <table id="scores" class="<%= @org_name %>">
 <% @events.select{|event| event["level"] == @level }.each do |event| %>
