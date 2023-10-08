@@ -46,7 +46,7 @@ class BG < Sinatra::Base
     else
       @level_password = level_password
       @org_name = org_name
-      @level = level
+      @org_level = level
       return erb :"decisions/form"
     end
   end
@@ -78,7 +78,7 @@ class BG < Sinatra::Base
       @level_password = level_password
       @org_name = org_name
       @org_total = current_total(org_name)
-      @level = level
+      @org_level = level
       @events = read_events(org_name)
       return erb :"scores/view"
     end

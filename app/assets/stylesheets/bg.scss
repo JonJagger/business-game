@@ -24,7 +24,7 @@ $lighter-color: lighten(Khaki, 20%);
   display: inline-block;
   border: 1px solid darken(gray,20%);
   padding: 4px;
-  margin: 0px;
+  margin: { top:8px; bottom:5px; }
 }
 
 //-----------------------------------------------------------------------
@@ -111,7 +111,10 @@ button
 
 table#scores
 {
+  margin-top: 10px;
   font-size: 0.6em;
+  position: relative;
+  left: -14px;
 }
 
 table#scores td
